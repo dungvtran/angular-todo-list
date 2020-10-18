@@ -1,0 +1,12 @@
+<div class="task">
+  <div>Title: {{task.title}}</div>
+  <div>Description: {{task.description}}</div>
+  <div>Status: {{getStatusString(task.status)}}</div>
+  <div *ngIf="!isCannotChangeStatus">
+    <label>Change status:</label>
+    <div *ngFor="let availableStatus of availableStatuses">
+      <button (click)="changeStatus(availableStatus)">Change to
+        {{getStatusString(availableStatus)}}</button>
+    </div>
+  </div>
+</div>

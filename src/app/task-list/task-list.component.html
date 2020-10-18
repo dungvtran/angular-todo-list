@@ -1,0 +1,30 @@
+<h2>New task</h2>
+<form [formGroup]="newTaskForm" (ngSubmit)="onSubmit()">
+  <input id="title" [class.invalid]="title.invalid" placeholder="New task title"
+    formControlName="title"
+    required />
+  <div *ngIf="title.invalid && (title.dirty || title.touched)">
+    <div *ngIf="title.errors.required">
+      Task title is required.
+    </div>
+    <div *ngIf="title.errors.notUnique">
+      Task title is duplicated.
+    </div>
+  </div>
+  <textarea id="description" placeholder="New task description"
+    formControlName="description"></textarea>
+  <div *ngIf="description.invalid">
+    <div *ngIf="description.errors.maxlength">
+      Max length for description is {{maxLengthDescription}}
+    </div>
+  </div>
+  <div>
+    <button type="submit">CREATE NEW TASK</button>
+  </div>
+</form>
+<div>{{taskArchivedMessage}}</div>
+<p>Current tasks:</p>
+<div *ngFor="let task of taskList">
+  <app-task (onTaskArchived)="onReceiveTaskArchivedMessage($event)"
+    [task]="task"></app-task>
+</div>
